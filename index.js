@@ -1,6 +1,6 @@
-import express, { static } from 'express';
+var express = require('express');
 var app = express();
-app.use(static('public'));
+app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.set('views', './views');
 app.listen(3000);
