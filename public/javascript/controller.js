@@ -89,8 +89,31 @@ class ExButton extends React.Component {
     }
 }
 
+class ListItems extends React.Component {
+    constructor(props){
+        super(props);
+        this.txt = React.createRef();
+        this.state = {listItem: ['a', 'b', 'c', 'd', 'e']};
+    }
+    addText() {
+        this.state.listItem.push(this.txt.current.value);
+        this.setState(this.state);
+        this.txt.current.value = "";
+    }
+    render(){
+        return (
+            <div>
+                <input type="text" ref={this.txt}/>
+                <button onClick={this.addText.bind(this, this.addText)}>Add text</button>
+                {this.state.listItem.map((item, index) => <p key={index}>{item}</p>)}
+            </div>
+        )
+    }
+}
+
 ReactDOM.render(
     <div>
+        <ListItems />
         <ExButton />
         <TestRef />
         <NameCard name="Severus">My name is Tran Thanh Liem</NameCard>
