@@ -111,13 +111,51 @@ class ListItems extends React.Component {
     }
 }
 
+class TodoList extends React.Component {
+    constructor(props){
+        super(props);
+        this.txt = React.createRef();
+        this.state = {todos: [
+            'Take a shower', 'Go to sleep', 'Have breakfast'
+        ]}
+    }
+    loadTodos(){
+        this.state.todos.push(this.txt.current.value);
+        this.setState(this.state);
+        this.txt.current.value = "";
+    }
+    render(){
+        return (
+            <div>
+                <div className="group-input">
+                    <input className="input-todo" type="text" ref={this.txt}/>
+                    <button className="button-todo" onClick={this.loadTodos.bind(this, this.loadTodos)}>Add text</button>
+                </div>
+                <div className="list-items">
+                    {this.state.todos.map((todo, index) => {
+                        return (
+                            <div className="item" key={index}>
+                                <input type="checkbox"/>
+                                <label>{todo}</label>
+                                <span><i className="fas fa-bell"></i></span>
+                            </div>
+                        );
+                    }
+                    )}
+                </div>
+            </div>
+        )
+    }
+}
+
 ReactDOM.render(
     <div>
-        <ListItems />
+        {/* <ListItems />
         <ExButton />
         <TestRef />
         <NameCard name="Severus">My name is Tran Thanh Liem</NameCard>
-        <NameCard name="Orla">My name is Truong Thi Thanh Ngan</NameCard>
+        <NameCard name="Orla">My name is Truong Thi Thanh Ngan</NameCard> */}
+        <TodoList />
     </div>
-    , document.getElementById('root')
+    , document.getElementById('me')
 );
